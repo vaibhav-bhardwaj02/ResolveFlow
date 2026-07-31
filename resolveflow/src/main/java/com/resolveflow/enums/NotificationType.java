@@ -1,0 +1,24 @@
+package com.resolveflow.enums;
+
+public enum NotificationType {
+    REGISTRATION,
+
+    EMAIL_VERIFICATION,
+
+    PASSWORD_RESET,
+
+    COMPLAINT_SUBMITTED,
+
+    COMPLAINT_APPROVED,
+
+    COMPLAINT_REJECTED,
+
+    COMPLAINT_ASSIGNED,
+
+    STATUS_UPDATED,
+
+    COMPLAINT_RESOLVED,
+
+    COMPLAINT_CLOSED
+
+}

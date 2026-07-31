@@ -1,7 +1,7 @@
 package com.resolveflow.enums;
 
 public enum ComplaintStatus {
-    PENDING,
+    SUBMITTED,
     APPROVED,
     REJECTED,
     ASSIGNED,
