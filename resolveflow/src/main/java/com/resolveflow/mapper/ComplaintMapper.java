@@ -2,6 +2,7 @@ package com.resolveflow.mapper;
 
 import com.resolveflow.dto.complaint.ComplaintHistoryDTO;
 import com.resolveflow.dto.complaint.ComplaintResponseDTO;
+import com.resolveflow.dto.complaint.ComplaintRequestDTO;
 import com.resolveflow.entity.Category;
 import com.resolveflow.entity.Complaint;
 import com.resolveflow.entity.User;
@@ -86,4 +87,27 @@ public class ComplaintMapper {
 
         return user.getFirstName() + " " + user.getLastName();
     }
+
+    public static Complaint toEntity(
+            ComplaintRequestDTO dto,
+            User customer,
+            Category category
+    ) {
+
+        if (dto == null) {
+            return null;
+        }
+
+        Complaint complaint = new Complaint();
+
+        complaint.setTitle(dto.getTitle());
+        complaint.setDescription(dto.getDescription());
+        complaint.setPriority(dto.getPriority());
+
+        complaint.setCustomer(customer);
+        complaint.setCategory(category);
+
+        return complaint;
+    }
+
 }

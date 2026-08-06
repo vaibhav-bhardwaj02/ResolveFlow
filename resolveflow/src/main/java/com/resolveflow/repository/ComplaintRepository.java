@@ -17,6 +17,10 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
     // Find all complaints raised by a customer
     List<Complaint> findByCustomer(User customer);
 
+    List<Complaint> findByCustomerId(Long customerId);
+
+    List<Complaint> findByCustomerIdOrderByCreatedAtDesc(Long customerId);
+
     // Find all complaints assigned to an agent
     List<Complaint> findByAssignedAgent(User assignedAgent);
 

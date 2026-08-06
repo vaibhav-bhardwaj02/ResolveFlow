@@ -1,4 +1,4 @@
-package com.resolveflow.service;
+package com.resolveflow.service.interfaces;
 
 import com.resolveflow.dto.category.CategoryRequestDTO;
 import com.resolveflow.dto.category.CategoryResponseDTO;
