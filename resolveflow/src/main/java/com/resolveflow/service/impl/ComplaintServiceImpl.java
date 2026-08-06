@@ -30,7 +30,24 @@ public class ComplaintServiceImpl implements ComplaintService {
 
     @Override
     public ComplaintResponseDTO raiseComplaint(ComplaintRequestDTO requestDTO) {
-        throw new UnsupportedOperationException("Not implemented yet");
+
+        User customer = userRepository.findById(requestDTO.getCustomerId())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Customer not found."));
+
+        Category category = categoryRepository.findById(requestDTO.getCategoryId())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Category not found."));
+
+        Complaint complaint = ComplaintMapper.toEntity(requestDTO, customer, category);
+
+        // Temporary values (replace later if your team decides another format)
+        complaint.setStatus(ComplaintStatus.SUBMITTED);
+        complaint.setComplaintNumber("CMP-" + System.currentTimeMillis());
+
+        Complaint savedComplaint = complaintRepository.save(complaint);
+
+        return ComplaintMapper.toResponseDTO(savedComplaint);
     }
 
     @Override
