@@ -1,19 +1,21 @@
-package com.resolveflow.service.interfaces;
+package com.resolveflow.service;
 
-import com.resolveflow.entity.Category;
+import com.resolveflow.dto.category.CategoryRequestDTO;
+import com.resolveflow.dto.category.CategoryResponseDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CategoryService {
 
-    Category save(Category category);
+    CategoryResponseDTO createCategory(CategoryRequestDTO requestDTO);
 
-    Category update(Category category);
+    CategoryResponseDTO updateCategory(Long id, CategoryRequestDTO requestDTO);
 
-    void delete(Long id);
+    CategoryResponseDTO getCategoryById(Long id);
 
-    Optional<Category> findById(Long id);
+    List<CategoryResponseDTO> getAllCategories();
 
-    List<Category> findAll();
+    void deleteCategory(Long id);
+
+    CategoryResponseDTO changeCategoryStatus(Long id, Boolean active);
 }
