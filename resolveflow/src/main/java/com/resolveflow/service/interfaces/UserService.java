@@ -1,21 +1,22 @@
 package com.resolveflow.service.interfaces;
 
-import com.resolveflow.entity.User;
+import com.resolveflow.dto.user.ChangePasswordDTO;
+import com.resolveflow.dto.user.UpdateProfileDTO;
+import com.resolveflow.dto.user.UserResponseDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
-    User save(User user);
+    UserResponseDTO getUserById(Long id);
 
-    User update(User user);
+    UserResponseDTO getUserByEmail(String email);
 
-    void delete(Long id);
+    List<UserResponseDTO> getAllUsers();
 
-    Optional<User> findById(Long id);
+    UserResponseDTO updateProfile(Long id, UpdateProfileDTO updateProfileDTO);
 
-    Optional<User> findByEmail(String email);
+    void changePassword(Long id, ChangePasswordDTO changePasswordDTO);
 
-    List<User> findAll();
+    void deleteUser(Long id);
 }

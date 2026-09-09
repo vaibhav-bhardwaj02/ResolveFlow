@@ -1,12 +1,13 @@
 package com.resolveflow.service.interfaces;
 
-import com.resolveflow.entity.User;
+import com.resolveflow.dto.auth.LoginRequestDTO;
+import com.resolveflow.dto.auth.LoginResponseDTO;
+import com.resolveflow.dto.auth.RegisterRequestDTO;
+import com.resolveflow.dto.user.UserResponseDTO;
 
 public interface AuthenticationService {
 
-    User register(User user);
+    UserResponseDTO register(RegisterRequestDTO registerRequestDTO);
 
-    User login(String email,
-               String password);
-
+    LoginResponseDTO login(LoginRequestDTO loginRequestDTO);
 }
