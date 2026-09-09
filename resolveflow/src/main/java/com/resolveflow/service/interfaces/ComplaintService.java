@@ -1,21 +1,28 @@
 package com.resolveflow.service.interfaces;
 
-import com.resolveflow.entity.Complaint;
+import com.resolveflow.dto.complaint.ComplaintHistoryDTO;
+import com.resolveflow.dto.complaint.ComplaintRequestDTO;
+import com.resolveflow.dto.complaint.ComplaintResponseDTO;
+import com.resolveflow.dto.complaint.ComplaintSearchDTO;
+import com.resolveflow.dto.complaint.ComplaintStatusDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ComplaintService {
 
-    Complaint save(Complaint complaint);
+    ComplaintResponseDTO raiseComplaint(ComplaintRequestDTO requestDTO);
 
-    Complaint update(Complaint complaint);
+    ComplaintResponseDTO getComplaintById(Long id);
 
-    Optional<Complaint> findById(Long id);
+    List<ComplaintResponseDTO> getAllComplaints();
 
-    Optional<Complaint> findByComplaintNumber(String complaintNumber);
+    List<ComplaintHistoryDTO> getComplaintHistory(Long customerId);
 
-    List<Complaint> findAll();
+    List<ComplaintResponseDTO> searchComplaints(ComplaintSearchDTO searchDTO);
 
-    void delete(Long id);
+    ComplaintResponseDTO updateComplaint(Long id, ComplaintRequestDTO requestDTO);
+
+    ComplaintResponseDTO updateComplaintStatus(ComplaintStatusDTO statusDTO);
+
+    void deleteComplaint(Long id);
 }
