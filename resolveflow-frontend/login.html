@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in — ResolveFlow</title>
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+ 
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+ 
+  <div class="auth-layout">
+ 
+    <!-- Brand panel -->
+    <aside class="auth-brand">
+      <div class="auth-brand__logo">ResolveFlow</div>
+ 
+      <div class="auth-brand__body">
+        <h1>Every complaint, tracked from open to resolved.</h1>
+        <p>Sign in to manage complaints, assign agents, and keep your team on top of every case.</p>
+ 
+        <div class="ticket-stack" aria-hidden="true">
+          <div class="ticket-card">
+            <span class="ticket-card__dot dot-warning"></span>
+            <div class="ticket-card__text">
+              <span class="ticket-card__title">Payment not processed</span>
+              <span class="ticket-card__meta">Open · assigned to Agent</span>
+            </div>
+          </div>
+          <div class="ticket-card">
+            <span class="ticket-card__dot dot-primary"></span>
+            <div class="ticket-card__text">
+              <span class="ticket-card__title">Delayed delivery</span>
+              <span class="ticket-card__meta">In progress</span>
+            </div>
+          </div>
+          <div class="ticket-card">
+            <span class="ticket-card__dot dot-success"></span>
+            <div class="ticket-card__text">
+              <span class="ticket-card__title">Account access issue</span>
+              <span class="ticket-card__meta">Resolved</span>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="auth-brand__footer">&copy; 2026 ResolveFlow</div>
+    </aside>
+ 
+    <!-- Form panel -->
+    <main class="auth-form-panel">
+      <div class="auth-form-card">
+        <div class="auth-form-card__header">
+          <h2>Welcome back</h2>
+          <p>Sign in to your account to continue.</p>
+        </div>
+ 
+        <div class="alert" id="login-alert" role="alert"></div>
+ 
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email" required>
+            <span class="field-error"></span>
+          </div>
+ 
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+            <span class="field-error"></span>
+          </div>
+ 
+          <div class="auth-form-links">
+            <a href="forgot-password.html">Forgot password?</a>
+          </div>
+ 
+          <button type="submit" class="btn btn-primary btn-block" id="login-submit">Sign in</button>
+        </form>
+ 
+        <div class="auth-form-card__footer">
+          Don't have an account? <a href="register.html">Create one</a>
+        </div>
+      </div>
+    </main>
+ 
+  </div>
+ 
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

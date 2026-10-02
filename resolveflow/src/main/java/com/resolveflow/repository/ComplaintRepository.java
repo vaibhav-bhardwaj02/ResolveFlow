@@ -41,4 +41,8 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
 
     // Find complaints by category
     List<Complaint> findByCategoryId(Long categoryId);
+
+    List<Complaint> findByAssignedAgentId(Long agentId);
+
+    long countByStatus(ComplaintStatus status);
 }

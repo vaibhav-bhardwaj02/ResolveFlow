@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — ResolveFlow</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-shell">
+
+    <!-- Top nav -->
+    <nav class="app-nav">
+      <div class="app-nav__logo">ResolveFlow</div>
+      <div class="app-nav__right">
+        <div class="app-nav__user">
+          <div class="app-nav__avatar" id="nav-avatar">?</div>
+          <div class="app-nav__user-info">
+            <span class="app-nav__user-name" id="nav-name">—</span>
+            <span class="app-nav__user-role" id="nav-role">—</span>
+          </div>
+        </div>
+        <button class="app-nav__logout" id="logout-btn">Log out</button>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="app-main">
+      <div class="app-main__header">
+        <div>
+          <h1 id="page-title">My Complaints</h1>
+          <p id="page-subtitle">Track the status of complaints you've raised.</p>
+        </div>
+        <button class="btn btn-primary" id="new-complaint-btn">+ New Complaint</button>
+      </div>
+
+      <div class="status-filter" id="agent-filter-bar" style="display: none;">
+        <button class="status-filter__btn active" data-filter="active">Active</button>
+        <button class="status-filter__btn" data-filter="resolved">Resolved</button>
+        <button class="status-filter__btn" data-filter="all">All</button>
+      </div>
+
+      <div class="loading-text" id="loading-text">Loading…</div>
+
+      <div class="empty-state" id="empty-state" style="display: none;">
+        <h3 id="empty-title">No complaints yet</h3>
+        <p id="empty-subtitle">When you raise a complaint, it'll show up here.</p>
+      </div>
+
+      <div class="complaint-list" id="complaint-list"></div>
+    </main>
+
+  </div>
+
+  <!-- New Complaint modal (customer only) -->
+  <div class="modal-overlay" id="new-complaint-overlay">
+    <div class="modal">
+      <div class="modal__header">
+        <h2>Raise a complaint</h2>
+        <button class="modal__close" id="new-complaint-close" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="alert alert-danger" id="new-complaint-alert" role="alert"></div>
+
+      <form id="new-complaint-form" novalidate>
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" placeholder="Brief summary of the issue" required>
+          <span class="field-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="categoryId">Category</label>
+          <select id="categoryId" name="categoryId" required>
+            <option value="">Select a category</option>
+          </select>
+          <span class="field-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority" required>
+            <option value="">Select priority</option>
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+          </select>
+          <span class="field-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" placeholder="Describe the issue in detail" required></textarea>
+          <span class="field-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="new-complaint-submit">Submit complaint</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Complaint detail modal (customer: view only | agent: update status) -->
+  <div class="modal-overlay" id="detail-overlay">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 id="detail-title">Complaint details</h2>
+        <button class="modal__close" id="detail-close" aria-label="Close">&times;</button>
+      </div>
+
+      <div id="detail-body"></div>
+
+      <!-- Agent-only: update status form -->
+      <div id="agent-update-section" style="display: none;">
+        <div class="detail-section-label">Update status</div>
+
+        <div class="alert alert-danger" id="update-status-alert" role="alert"></div>
+
+        <form id="update-status-form" novalidate>
+          <div class="field">
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+              <option value="APPROVED">Approved</option>
+              <option value="REJECTED">Rejected</option>
+              <option value="ASSIGNED">Assigned</option>
+              <option value="IN_PROGRESS">In progress</option>
+              <option value="RESOLVED">Resolved</option>
+              <option value="CLOSED">Closed</option>
+            </select>
+            <span class="field-error"></span>
+          </div>
+
+          <div class="field">
+            <label for="resolutionRemarks">Resolution remarks</label>
+            <textarea id="resolutionRemarks" name="resolutionRemarks" placeholder="Optional notes about this update"></textarea>
+            <span class="field-error"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="update-status-submit">Update status</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

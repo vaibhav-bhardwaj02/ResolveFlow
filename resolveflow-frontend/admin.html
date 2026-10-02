@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — ResolveFlow</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <div class="admin-shell">
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar__logo">ResolveFlow</div>
+
+      <nav class="admin-nav">
+        <button class="admin-nav__item active" data-section="users">Users</button>
+        <button class="admin-nav__item" data-section="agents">Agents</button>
+        <button class="admin-nav__item" data-section="complaints">Complaints</button>
+        <button class="admin-nav__item" data-section="categories">Categories</button>
+        <button class="admin-nav__item" data-section="stats">Statistics</button>
+      </nav>
+
+      <div class="admin-sidebar__footer">
+        <div class="admin-sidebar__user">
+          <div class="admin-sidebar__avatar" id="nav-avatar">?</div>
+          <div class="admin-sidebar__user-info">
+            <div class="admin-sidebar__user-name" id="nav-name">—</div>
+            <div class="admin-sidebar__user-role">Admin</div>
+          </div>
+        </div>
+        <button class="admin-sidebar__logout" id="logout-btn">Log out</button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="admin-main">
+
+      <!-- Users section -->
+      <section class="admin-section active" id="section-users">
+        <div class="admin-section__header">
+          <div>
+            <h1>Users</h1>
+            <p>Everyone registered on ResolveFlow.</p>
+          </div>
+        </div>
+
+        <div class="loading-text" id="users-loading">Loading…</div>
+
+        <div class="data-table-wrap" id="users-table-wrap" style="display: none;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Joined</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Agents section -->
+      <section class="admin-section" id="section-agents">
+        <div class="admin-section__header">
+          <div>
+            <h1>Agents</h1>
+            <p>Support agent accounts.</p>
+          </div>
+          <button class="btn btn-primary" id="new-agent-btn">+ New Agent</button>
+        </div>
+
+        <div class="loading-text" id="agents-loading">Loading…</div>
+
+        <div class="empty-state" id="agents-empty" style="display: none;">
+          <h3>No agents yet</h3>
+          <p>Create your first support agent to start assigning complaints.</p>
+        </div>
+
+        <div class="data-table-wrap" id="agents-table-wrap" style="display: none;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Joined</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="agents-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Complaints section -->
+      <section class="admin-section" id="section-complaints">
+        <div class="admin-section__header">
+          <div>
+            <h1>Complaints</h1>
+            <p>All complaints across the system, with assignment.</p>
+          </div>
+        </div>
+
+        <div class="table-toolbar">
+          <input type="text" class="table-search" id="complaints-search" placeholder="Search by title or complaint #">
+          <select id="complaints-status-filter" class="field-select-inline">
+            <option value="">All statuses</option>
+            <option value="SUBMITTED">Submitted</option>
+            <option value="APPROVED">Approved</option>
+            <option value="REJECTED">Rejected</option>
+            <option value="ASSIGNED">Assigned</option>
+            <option value="IN_PROGRESS">In progress</option>
+            <option value="RESOLVED">Resolved</option>
+            <option value="CLOSED">Closed</option>
+          </select>
+        </div>
+
+        <div class="loading-text" id="complaints-loading">Loading…</div>
+
+        <div class="empty-state" id="complaints-empty" style="display: none;">
+          <h3>No complaints found</h3>
+          <p>Nothing matches the current filter.</p>
+        </div>
+
+        <div class="data-table-wrap" id="complaints-table-wrap" style="display: none;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Complaint #</th>
+                <th>Title</th>
+                <th>Customer</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Assigned to</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="complaints-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Categories section -->
+      <section class="admin-section" id="section-categories">
+        <div class="admin-section__header">
+          <div>
+            <h1>Categories</h1>
+            <p>Manage complaint categories.</p>
+          </div>
+          <button class="btn btn-primary" id="new-category-btn">+ New Category</button>
+        </div>
+
+        <div class="loading-text" id="categories-loading">Loading…</div>
+
+        <div class="empty-state" id="categories-empty" style="display: none;">
+          <h3>No categories yet</h3>
+          <p>Create a category so customers can classify their complaints.</p>
+        </div>
+
+        <div class="data-table-wrap" id="categories-table-wrap" style="display: none;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="categories-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Stats section -->
+      <section class="admin-section" id="section-stats">
+        <div class="admin-section__header">
+          <div>
+            <h1>Statistics</h1>
+            <p>System-wide complaint statistics.</p>
+          </div>
+        </div>
+
+        <div class="loading-text" id="stats-loading">Loading…</div>
+
+        <div id="stats-content" style="display: none;">
+          <div class="stat-grid" id="stats-cards"></div>
+
+          <div class="chart-row">
+            <div class="chart-card">
+              <h3>Complaints by status</h3>
+              <canvas id="stats-bar-chart"></canvas>
+            </div>
+            <div class="chart-card">
+              <h3>Overall breakdown</h3>
+              <canvas id="stats-donut-chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- New Agent modal -->
+  <div class="modal-overlay" id="new-agent-overlay">
+    <div class="modal">
+      <div class="modal__header">
+        <h2>Create support agent</h2>
+        <button class="modal__close" id="new-agent-close" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="alert alert-danger" id="new-agent-alert" role="alert"></div>
+
+      <form id="new-agent-form" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="agentFirstName">First name</label>
+            <input type="text" id="agentFirstName" name="firstName" placeholder="First name" required>
+            <span class="field-error"></span>
+          </div>
+
+          <div class="field">
+            <label for="agentLastName">Last name</label>
+            <input type="text" id="agentLastName" name="lastName" placeholder="Last name" required>
+            <span class="field-error"></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="agentEmail">Email</label>
+          <input type="email" id="agentEmail" name="email" placeholder="agent@example.com" required>
+          <span class="field-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="agentPassword">Temporary password</label>
+          <input type="password" id="agentPassword" name="password" placeholder="At least 8 characters" required>
+          <span class="field-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="agentPhoneNumber">Phone number</label>
+          <input type="tel" id="agentPhoneNumber" name="phoneNumber" placeholder="e.g. 9876543210" required>
+          <span class="field-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="new-agent-submit">Create agent</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- New/Edit Category modal -->
+  <div class="modal-overlay" id="category-overlay">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 id="category-modal-title">New category</h2>
+        <button class="modal__close" id="category-close" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="alert alert-danger" id="category-alert" role="alert"></div>
+
+      <form id="category-form" novalidate>
+        <input type="hidden" id="categoryEditId" name="categoryEditId" value="">
+        <input type="hidden" id="categoryEditActive" name="categoryEditActive" value="true">
+
+        <div class="field">
+          <label for="categoryName">Name</label>
+          <input type="text" id="categoryName" name="name" placeholder="e.g. Billing Issue" required>
+          <span class="field-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="categoryDescription">Description</label>
+          <textarea id="categoryDescription" name="description" placeholder="Optional short description"></textarea>
+          <span class="field-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="category-submit">Save category</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Assign Complaint modal -->
+  <div class="modal-overlay" id="assign-overlay">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 id="assign-modal-title">Assign complaint</h2>
+        <button class="modal__close" id="assign-close" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="alert alert-danger" id="assign-alert" role="alert"></div>
+
+      <form id="assign-form" novalidate>
+        <input type="hidden" id="assignComplaintId" name="assignComplaintId" value="">
+
+        <div class="field">
+          <label for="assignAgentId">Support agent</label>
+          <select id="assignAgentId" name="agentId" required>
+            <option value="">Select an agent</option>
+          </select>
+          <span class="field-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="assign-submit">Assign</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
